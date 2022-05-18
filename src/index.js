@@ -1,23 +1,56 @@
 import React from 'react';
-import { createRoot } from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { store } from './app/store';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import { createStore } from 'redux';
+import { connect } from 'react-redux';
 import './index.css';
 
-const container = document.getElementById('root');
-const root = createRoot(container);
 
-root.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>
+function incrementCounter(num) {
+  return { type: 'INCREMENT', num: num }
+}
+
+const initialState = {
+  count: 0
+};
+
+function reducer(state = initialState, action) {
+  switch(action.type) {
+    case 'INCREMENT':
+      return { count: state.count + action.num };
+    default:
+      return state;
+  }
+}
+
+function Counter(props) {
+  function handleClick() {
+    props.incrementCounter(1);
+  }
+    return <div>
+    <p>{props.count}</p>
+    <button onClick={handleClick}>Increment</button>
+    </div>;
+}
+
+function mapStateToProps(state) {
+  return {
+    count: state.count
+  };
+}
+const mapDispatchToProps = {
+  incrementCounter
+}
+
+const store = createStore(reducer);
+
+const MyCounter = connect(mapStateToProps, mapDispatchToProps)(Counter);
+
+const el = <Provider store={store}>
+          <MyCounter/>
+        </Provider>; 
+
+ReactDOM.render(
+  el, 
+  document.getElementById('root')
 );
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();

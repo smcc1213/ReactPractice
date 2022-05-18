@@ -11,3 +11,39 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+button {
+  background-color: blue;
+  color: white;
+  padding: 10px;
+  border-radius: 15%;
+  border-color: black;
+  border-width: thick;
+}
+
+button:active{
+  background-color: goldenrod;
+}
+
+
+body {
+  padding: 100px;
+}
+
+h1 {
+  text-align: center;
+}
+
+#root {
+  border: solid black;
+  border-radius: 50%;
+  border-width: thick;
+  display: block;
+  padding: 25px 25px;
+  text-align: center;
+  font-size: x-large;
+  background-color: lightslategray;
+  max-width: 500px;
+  margin: 100px;
+  color: white;
+}
